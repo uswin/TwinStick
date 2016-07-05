@@ -6,9 +6,22 @@ public class GameManager : MonoBehaviour {
 
 	public bool isRecording=true;
 	// Use this for initialization
+
+	void Awake()
+	{
+//		PlayerPrefManagerScript.SetUnlockLevel(0);
+//		PlayerPrefManagerScript.SetUnlockLevel(1);
+//		PlayerPrefManagerScript.SetUnlockLevel(2);
+//		PlayerPrefManagerScript.SetlockLevel(0);
+//		PlayerPrefManagerScript.SetlockLevel(1);
+//		PlayerPrefManagerScript.SetlockLevel(2);
+	}
+
 	void Start () 
 	{
-
+		print(PlayerPrefManagerScript.GetIsUnlockLevel(0));
+		print(PlayerPrefManagerScript.GetIsUnlockLevel(1));
+		print(PlayerPrefManagerScript.GetIsUnlockLevel(2));
 	}
 	
 	// Update is called once per frame
