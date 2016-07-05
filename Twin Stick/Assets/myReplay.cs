@@ -6,35 +6,44 @@ public class myReplay : MonoBehaviour
 	private const int bufferFrames=100;
 	private myKeyframe[] mykeyframe = new myKeyframe[bufferFrames];
 	private Rigidbody myRigidbody;
+	private GameManager myGameManager;
 
 	// Use this for initialization
 	void Start () 
 	{
 		myRigidbody = transform.GetComponent<Rigidbody>();
-
+		myGameManager = GameObject.FindObjectOfType<GameManager>();
 	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
-		PlayBackReplay ();
+		if(myGameManager.isRecording==true)
+		{
+			Record();
+		}
+		else if (myGameManager.isRecording==false)
+		{
+			PlayBackReplay();
+		}
 	}
 
-	void PlayBackReplay ()
+	public void PlayBackReplay()
 	{
 		myRigidbody.isKinematic = true;
 		int frame = Time.frameCount % bufferFrames;
 		print ("Writing Frame " + frame);
-		transform.position = mykeyframe [frame].position;
-		transform.rotation = mykeyframe [frame].rotation;
+		transform.position = mykeyframe[frame].position;
+		transform.rotation = mykeyframe[frame].rotation;
 	}
 
-	void Record ()
+	public void Record()
 	{
 		myRigidbody.isKinematic = false;
 		int frame = Time.frameCount % bufferFrames;
+		float time = Time.time;
 		print ("Writing Frame " + frame);
-		mykeyframe [frame] = new myKeyframe (Time.time, transform.position, transform.rotation);
+		mykeyframe [frame] = new myKeyframe (time, transform.position, transform.rotation);
 	}
 }
 
